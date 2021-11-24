@@ -51,6 +51,9 @@ def getsongList():
     # Identify customer age at the time of song's release year
     filtrd['ageAtSongRelease'] = filtrd['year'] - filtrd['custDOB']  # .assign(ageAtSongRelease = custDOB - year)
 
+    #Filter sogns which might have released around or after the user turned 15
+    filtrd = filtrd[filtrd['ageAtSongRelease'] > 14]
+
     #Read PCA Output Files
     distArrayPd = pd.read_parquet('data/featureColumns_'+activity.replace(" ","") + '.parquet')
 
