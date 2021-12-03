@@ -19,10 +19,10 @@ CORS(app)
 #@cross_origin()
 def getsongList():
 
-    numSongs = 10 if request.form.get('numSongs') == None else int(request.form.get('numSongs'))
-    dob_year = 0 if  request.form.get('dob_year') == None else int(request.form['dob_year'])
-    explicit = 'N' if request.form.get('explicitYN') == None else request.form.get('explicitYN')
-    activity = None if request.form.get('activity') == None else request.form.get('activity').lower()
+    numSongs = 10 if request.args.get('numSongs') == None else int(request.args.get('numSongs'))
+    dob_year = 0 if  request.args.get('dob_year') == None else int(request.args['dob_year'])
+    explicit = 'N' if request.args.get('explicitYN') == None else request.args.get('explicitYN')
+    activity = None if request.args.get('activity') == None else request.args.get('activity').lower()
 
     acceptedActivities = list(pd.read_parquet('data/acceptedActivities.parquet')['activity'])
 
@@ -30,7 +30,7 @@ def getsongList():
     if activity == 'None' or activity not in acceptedActivities:
         return ({"error" : "Activity missing in request or different from accepted ones! Currently accepted activities are 'driving', 'cooking', 'studying', 'working out', 'cleaning', 'being creative'"})
 
-    if dob_year < 1900 or dob_year > 2021:
+    if (dob_year!= 0) & (dob_year < 1900 or dob_year > 2021):
         return ({"error" : "DOB Year seems to have an invalid value. Needs to be 1900 <= YYYY <= 2021"})
 
     seedIndexes = pd.read_parquet('data/seedInfo.parquet')
