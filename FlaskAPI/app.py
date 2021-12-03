@@ -30,7 +30,7 @@ def getsongList():
     if activity == 'None' or activity not in acceptedActivities:
         return ({"error" : "Activity missing in request or different from accepted ones! Currently accepted activities are 'driving', 'cooking', 'studying', 'working out', 'cleaning', 'being creative'"})
 
-    if (dob_year!= 0) & (dob_year < 1900 or dob_year > 2021):
+    if dob_year < 1900 or dob_year > 2021:
         return ({"error" : "DOB Year seems to have an invalid value. Needs to be 1900 <= YYYY <= 2021"})
 
     seedIndexes = pd.read_parquet('data/seedInfo.parquet')
