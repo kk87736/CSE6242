@@ -35,7 +35,13 @@ def getsongList():
 
     seedIndexes = pd.read_parquet('data/seedInfo.parquet')
 
-    cluster = seedIndexes.loc[seedIndexes['Activity'] == activity]['Cluster'][0]
+#    print ("Activity passed is",activity)
+#    print ("Seed Indexes\n",seedIndexes)
+
+    cluster = seedIndexes.loc[seedIndexes['Activity'] == activity]['Cluster'].iloc[0]
+
+#    print ("Cluster is ", cluster)
+
 
     songswithcluster = pd.read_parquet('data/clusters_trimmed.parquet')
 
